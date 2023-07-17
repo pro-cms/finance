@@ -1,7 +1,7 @@
 The fundamental package for financial computing with Dart.
 
 [![pub package](https://img.shields.io/pub/v/finance.svg)](https://pub.dev/packages/finance)
-[![Build Status](https://travis-ci.org/ismaelJimenez/finance.svg?branch=master)](https://travis-ci.org/ismaelJimenez/finance)
+[![Build Status](https://travis-ci.org/pro-cms/finance.svg?branch=master)](https://travis-ci.org/pro-cms/finance)
 
 This package provides a set of high-level functions and classes that make it easy to compute financial ratios, patterned after spreadsheet computations. It's platform-independent, supports iOS and Android.
 
