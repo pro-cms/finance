@@ -1,14 +1,13 @@
-library finance;
+library finance_updated;
 
 import 'dart:math';
-import 'package:meta/meta_updated.dart';
 
 class Finance {
-  static num fv(
-      {@required num rate,
-      @required num nper,
-      @required num pmt,
-      @required num pv,
+  num fv(
+      {required num rate,
+      required num nper,
+      required num pmt,
+      required num pv,
       bool end = true}) {
     final int when = end ? 0 : 1;
     final num temp = pow(1 + rate, nper);
@@ -17,10 +16,10 @@ class Finance {
     return -(pv * temp + pmt * fact);
   }
 
-  static num pmt(
-      {@required num rate,
-      @required num nper,
-      @required num pv,
+  num pmt(
+      {required num rate,
+      required num nper,
+      required num pv,
       num fv = 0,
       bool end = true}) {
     final int when = end ? 0 : 1;
@@ -32,10 +31,10 @@ class Finance {
     return -(fv + pv * temp) / fact;
   }
 
-  static num nper(
-      {@required num rate,
-      @required num pmt,
-      @required num pv,
+  num nper(
+      {required num rate,
+      required num pmt,
+      required num pv,
       num fv = 0,
       bool end = true}) {
     final int when = end ? 0 : 1;
@@ -50,11 +49,11 @@ class Finance {
     }
   }
 
-  static num ipmt(
-      {@required num rate,
-      @required num per,
-      @required num nper,
-      @required num pv,
+  num ipmt(
+      {required num rate,
+      required num per,
+      required num nper,
+      required num pv,
       num fv = 0,
       bool end = true}) {
     final num totalPmt = pmt(rate: rate, nper: nper, pv: pv, fv: fv, end: end);
@@ -65,20 +64,20 @@ class Finance {
     return ipmt;
   }
 
-  static num _rbl(
-      {@required num rate,
-      @required num per,
-      @required num pmt,
-      @required num pv,
+  num _rbl(
+      {required num rate,
+      required num per,
+      required num pmt,
+      required num pv,
       bool end = true}) {
     return fv(rate: rate, nper: per - 1, pmt: pmt, pv: pv, end: end);
   }
 
-  static num ppmt(
-      {@required num rate,
-      @required num per,
-      @required num nper,
-      @required num pv,
+  num ppmt(
+      {required num rate,
+      required num per,
+      required num nper,
+      required num pv,
       num fv = 0,
       bool end = true}) {
     final num total = pmt(rate: rate, nper: nper, pv: pv, fv: fv, end: end);
@@ -86,11 +85,11 @@ class Finance {
         ipmt(rate: rate, per: per, nper: nper, pv: pv, fv: fv, end: end);
   }
 
-  static num pv(
-      {@required num rate,
-      @required num nper,
-      @required num pmt,
-      @required num fv,
+  num pv(
+      {required num rate,
+      required num nper,
+      required num pmt,
+      required num fv,
       bool end = true}) {
     final int when = end ? 0 : 1;
     final num temp = pow(1 + rate, nper);
@@ -99,7 +98,7 @@ class Finance {
     return -(fv + pmt * fact) / temp;
   }
 
-  static num _g_div_gp(num r, num n, num p, num x, num y, num w) {
+  num _gDivGp(num r, num n, num p, num x, num y, num w) {
     final num t1 = pow(r + 1, n);
     final num t2 = pow(r + 1, n - 1);
     return (y + t1 * x + p * (t1 - 1) * (r * w + 1) / r) /
@@ -109,11 +108,11 @@ class Finance {
             p * (t1 - 1) * w / r);
   }
 
-  static num rate(
-      {@required num nper,
-      @required num pmt,
-      @required num pv,
-      @required num fv,
+  num rate(
+      {required num nper,
+      required num pmt,
+      required num pv,
+      required num fv,
       bool end = true,
       num guess = 0.1,
       num tol = 1e-6,
@@ -124,7 +123,7 @@ class Finance {
     num iterator = 0;
     bool close = false;
     while ((iterator < maxIter) && !close) {
-      final num rnp1 = rn - _g_div_gp(rn, nper, pmt, pv, fv, when);
+      final num rnp1 = rn - _gDivGp(rn, nper, pmt, pv, fv, when);
       final num diff = (rnp1 - rn).abs();
       close = diff < tol;
       iterator += 1;
@@ -134,26 +133,26 @@ class Finance {
     return rn;
   }
 
-  static num npv({@required num rate, @required List<num> values}) {
+  num npv({required num rate, required List<num> values}) {
     return List<int>.generate(values.length, (int index) => index)
         .map((int index) => values[index] / pow(1 + rate, index))
         .fold(0, (num p, num c) => p + c);
   }
 
-  static num _npvPrime({@required num rate, @required List<num> values}) {
+  num _npvPrime({required num rate, required List<num> values}) {
     return List<int>.generate(values.length, (int index) => index)
         .map((int index) => -index * values[index] / pow(1 + rate, index + 1))
         .fold(0, (num p, num c) => p + c);
   }
 
-  static num _npv_div_npvPrime(num rate, List<num> values) {
+  num _npvDivNpvPrime(num rate, List<num> values) {
     final num t1 = npv(rate: rate, values: values);
     final num t2 = _npvPrime(rate: rate, values: values);
     return t1 / t2;
   }
 
-  static num irr(
-      {@required List<num> values,
+  num irr(
+      {required List<num> values,
       num guess = 0.1,
       num tol = 1e-6,
       num maxIter = 100}) {
@@ -161,7 +160,7 @@ class Finance {
     num iterator = 0;
     bool close = false;
     while ((iterator < maxIter) && !close) {
-      final num rnp1 = rn - _npv_div_npvPrime(rn, values);
+      final num rnp1 = rn - _npvDivNpvPrime(rn, values);
       final num diff = (rnp1 - rn).abs();
       close = diff < tol;
       iterator += 1;

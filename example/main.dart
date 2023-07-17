@@ -1,6 +1,8 @@
-import 'package:finance/finance.dart';
+import 'package:finance_updated/finance_updated.dart';
 
 void main(List<String> arguments) {
+  var Finance = null;
+  Finance = Finance();
   // What is the future value after 30 years of saving $1000 now, with
   // an additional monthly savings of $100.  Assume the interest rate is
   // 7% (annually) compounded monthly?
@@ -20,16 +22,18 @@ void main(List<String> arguments) {
       List<int>.generate(12, (int index) => index + 1).map((int per) =>
           <String, num>{
             'per': per,
-            'pmt': Finance.pmt(rate: 0.1 / 12, nper: 1 * 12, pv: 5000),
+            'pmt': (Finance.pmt(rate: 0.1 / 12, nper: 1 * 12, pv: 5000) as num),
             'ppmt':
-                Finance.ppmt(rate: 0.1 / 12, per: per, nper: 1 * 12, pv: 5000),
+                (Finance.ppmt(rate: 0.1 / 12, per: per, nper: 1 * 12, pv: 5000)
+                    as num),
             'ipmt':
-                Finance.ipmt(rate: 0.1 / 12, per: per, nper: 1 * 12, pv: 5000),
+                (Finance.ipmt(rate: 0.1 / 12, per: per, nper: 1 * 12, pv: 5000)
+                    as num),
           });
 
   payments.forEach(print);
   final num interestPaid =
-      payments.fold(0, (num p, Map<String, num> c) => p + c['ipmt']);
+      payments.fold(0, (num p, Map<String, num> c) => p + (c['ipmt'] ?? 0));
   print(interestPaid);
 
   //  What is the present value (e.g., the initial investment) of an investment that

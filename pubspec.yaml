@@ -1,16 +1,15 @@
-name: meta_updated
+name: finance_updated
 description: The fundamental package for financial computing with Dart.
 version: 0.1.0
-author: "Zepson Technologies <ijimenezm@hotmail.es>"
-homepage: https://github.com/pro-cms/meta_updated
+homepage: https://github.com/pro-cms/finance_updated
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.12.0 <3.10.0"
 
 dependencies:
   meta: ^1.1.7
 
 dev_dependencies:
-  test: '>=1.3.0 <1.6.8'
   mockito: ^4.1.0
   pedantic: ^1.8.0+1
+  test: '>=1.16.6 <1.24.3'
