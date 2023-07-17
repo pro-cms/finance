@@ -1,8 +1,8 @@
-name: finance
+name: meta_updated
 description: The fundamental package for financial computing with Dart.
 version: 0.1.0
-author: "Ismael Jiménez <ijimenezm@hotmail.es>"
-homepage: https://github.com/ismaelJimenez/finance
+author: "Zepson Technologies <ijimenezm@hotmail.es>"
+homepage: https://github.com/pro-cms/meta_updated
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
